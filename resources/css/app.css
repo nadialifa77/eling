@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-item {
+    @apply flex items-center gap-2 bg-gray-200 px-4 py-2 rounded-2xl shadow text-sm font-semibold hover:scale-105 transition;
+}
+
+.mobile-nav {
+    @apply block bg-gray-200 px-4 py-3 rounded-xl text-sm font-semibold;
+}
