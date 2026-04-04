@@ -1,8 +1,8 @@
 FROM php:8.2-cli
 
-# Install dependencies
+# Install dependencies (FIX SQLITE)
 RUN apt-get update && apt-get install -y \
-    git unzip curl libzip-dev zip sqlite3 \
+    git unzip curl libzip-dev zip sqlite3 libsqlite3-dev \
     && docker-php-ext-install zip pdo pdo_sqlite
 
 # Install Composer
@@ -17,19 +17,19 @@ COPY . .
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# 🔥 FIX SQLITE
+# SQLite file
 RUN touch database/database.sqlite
 
-# 🔥 FIX PERMISSION
+# Permission
 RUN chmod -R 775 storage bootstrap/cache
 
-# 🔥 CLEAR & OPTIMIZE
+# Clear cache
 RUN php artisan config:clear && \
     php artisan cache:clear && \
     php artisan view:clear && \
     php artisan route:clear
 
-# 🔥 MIGRATE DATABASE
+# Migrate
 RUN php artisan migrate --force
 
 # Expose port
