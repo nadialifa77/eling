@@ -1,8 +1,10 @@
 FROM php:8.2-cli
 
-# Install dependencies
+# Install dependencies + NodeJS 18
 RUN apt-get update && apt-get install -y \
-    git unzip curl libzip-dev zip sqlite3 libsqlite3-dev nodejs npm \
+    git unzip curl libzip-dev zip sqlite3 libsqlite3-dev \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && docker-php-ext-install zip pdo pdo_sqlite
 
 # Install Composer
@@ -15,9 +17,12 @@ COPY . .
 # Install backend
 RUN composer install --no-dev --optimize-autoloader
 
-# Install frontend & build Vite
+# 🔥 Install frontend & build Vite
 RUN npm install
 RUN npm run build
+
+# 🔥 DEBUG (biar tau build berhasil)
+RUN ls -la public/build
 
 # SQLite
 RUN touch database/database.sqlite
