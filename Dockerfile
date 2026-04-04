@@ -33,7 +33,8 @@ RUN chmod -R 775 storage bootstrap/cache
 # Clear cache
 RUN php artisan config:clear && \
     php artisan view:clear && \
-    php artisan route:clear
+    php artisan route:clear && \
+    php artisan config:cache
 
 EXPOSE 10000
 
