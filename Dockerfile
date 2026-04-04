@@ -36,6 +36,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 RUN php artisan config:clear && \
     php artisan view:clear && \
     php artisan route:clear && \
+    php artisan migrate --force && \
     php artisan config:cache
 
 EXPOSE 10000
