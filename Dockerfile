@@ -23,14 +23,14 @@ RUN touch database/database.sqlite
 # Permission
 RUN chmod -R 775 storage bootstrap/cache
 
-# Clear cache
+# MIGRATE DULU (WAJIB DI ATAS)
+RUN php artisan migrate --force
+
+# BARU CLEAR CACHE
 RUN php artisan config:clear && \
     php artisan cache:clear && \
     php artisan view:clear && \
     php artisan route:clear
-
-# Migrate
-RUN php artisan migrate --force
 
 # Expose port
 EXPOSE 10000
