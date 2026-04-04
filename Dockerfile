@@ -2,7 +2,7 @@ FROM php:8.2-cli
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    git unzip curl libzip-dev zip sqlite3 nodejs npm \
+    git unzip curl libzip-dev zip sqlite3 libsqlite3-dev nodejs npm \
     && docker-php-ext-install zip pdo pdo_sqlite
 
 # Install Composer
@@ -25,7 +25,7 @@ RUN touch database/database.sqlite
 # Permission
 RUN chmod -R 775 storage bootstrap/cache
 
-# Clear cache (AMAN karena pakai file driver)
+# Clear cache
 RUN php artisan config:clear && \
     php artisan view:clear && \
     php artisan route:clear
