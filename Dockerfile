@@ -28,7 +28,9 @@ RUN ls -la public/build
 RUN touch database/database.sqlite
 
 # Permission
-RUN chmod -R 775 storage bootstrap/cache
+RUN chmod -R 777 storage bootstrap/cache
+
+RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Clear cache
 RUN php artisan config:clear && \
