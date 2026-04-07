@@ -25,7 +25,9 @@ RUN npm run build
 RUN ls -la public/build
 
 # SQLite
-RUN touch database/database.sqlite
+RUN mkdir -p database && \
+    touch database/database.sqlite && \
+    chmod -R 777 database
 
 # Permission
 RUN chmod -R 777 storage bootstrap/cache
@@ -34,11 +36,11 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Clear cache
 RUN php artisan config:clear && \
-    php artisan view:clear && \
+    php artisan cache:clear && \
     php artisan route:clear && \
-    php artisan migrate --force && \
-    php artisan config:cache
+    php artisan view:clear && \
+    php artisan migrate --force
 
 EXPOSE 10000
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
+CMD php -S 0.0.0.0:10000 -t public
