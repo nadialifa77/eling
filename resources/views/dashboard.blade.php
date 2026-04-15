@@ -54,7 +54,7 @@
                     </li>
                     <li>
                         Dilanjutkan dengan
-                        <strong>“Apa itu Purpose in Life?”</strong>.
+                        <strong>“Apa itu <i>Purpose in Life?</i>”</strong>.
                     </li>
                     <li>
                         Selanjutnya, pengguna dapat menekan tombol
