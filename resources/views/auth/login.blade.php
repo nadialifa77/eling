@@ -61,7 +61,7 @@
                 
                 </div>
 
-                <form method="POST" action="{{ route('login') }}" class="space-y-4">
+                <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
                     {{-- EMAIL --}}
@@ -119,19 +119,6 @@
                         @error('password')
                             <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
-
-                    {{-- REMEMBER --}}
-                    <div class="flex items-center justify-between text-sm">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" name="remember"
-                                class="rounded bg-[#220048] border-gray-400 text-yellow-400">
-                            Remember me
-                        </label>
-
-                        <a href="{{ route('password.request') }}" class="text-gray-300 hover:text-yellow-400">
-                            Forgot Password?
-                        </a>
                     </div>
 
                     {{-- ERROR GLOBAL --}}
