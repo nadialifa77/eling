@@ -1,7 +1,7 @@
 FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
-    git unzip curl libzip-dev zip \
+    git unzip curl libzip-dev zip libpq-dev \
     && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && docker-php-ext-install zip pdo pdo_pgsql
