@@ -24,7 +24,7 @@
             ],
             
             [
-                'nama' => 'Nadia Alifa',
+                'nama' => 'Nadia Alifa, S.Kom.',
                 'foto' => asset('images/nadia.jpeg'),
             ],
         ];
