@@ -13,23 +13,22 @@
 
         <div class="relative max-w-6xl mx-auto px-6 py-10">
 
-            <div class="bg-gray-200 rounded-3xl py-8 sm:py-10 px-6 text-center shadow-md max-w-md mx-auto">
+            <div class="bg-gray-200 rounded-3xl py-10 px-10 text-center shadow-md max-w-4xl mx-auto">
 
                 <div class="text-3xl mb-3">
                     ⭐
                 </div>
 
                 <p class="italic text-xl mb-3">
-                    "Setiap langkah kecil membawa perubahan besar"
+                    "{{ $quote }}"
                 </p>
 
-                <p class="text-sm text-gray-200">
+                <p class="text-sm text-gray-600">
                     Kutipan Hari Ini
                 </p>
             </div>
         </div>
     </div>
-
 
     {{-- PENGGUNAAN WEB --}}
     <div class="max-w-6xl mx-auto px-6 mb-12">
@@ -50,7 +49,7 @@
                 <ol class="list-decimal ml-6 text-sm leading-relaxed space-y-2">
                     <li>
                         Penggunaan website eling dimulai dari membaca
-                        <strong>“Tentang Eling”</strong> yang ada di bawah ini.
+                        <strong>“Apa itu Eling”</strong> yang ada di bawah ini.
                     </li>
                     <li>
                         Dilanjutkan dengan
@@ -106,19 +105,21 @@
             </div>
 
             {{-- CARD 3 --}}
-            <div
-                class="bg-gray-200 rounded-3xl p-6 shadow-sm 
-                    flex flex-col items-center justify-center text-center
-                    hover:shadow-md transition h-48">
-
-                <div class="w-28 mb-4">
-                    <img src="{{ asset('images/book.png') }}" alt="Buku" class="w-full mx-auto">
+            <a href="https://drive.google.com/drive/folders/1TJy1s0T2XH5I4gC6ncpdD3Y5vz0Uduqz" target="_blank">
+                <div
+                    class="bg-gray-200 rounded-3xl p-6 shadow-sm 
+                        flex flex-col items-center justify-center text-center
+                        hover:shadow-md hover:scale-105 transition h-48 cursor-pointer">
+            
+                    <div class="w-28 mb-4">
+                        <img src="{{ asset('images/book.png') }}" alt="Buku" class="w-full mx-auto">
+                    </div>
+            
+                    <h3 class="font-semibold">
+                        Buku Panduan
+                    </h3>
                 </div>
-
-                <h3 class="font-semibold">
-                    Buku Panduan
-                </h3>
-            </div>
+            </a>
 
         </div>
 
@@ -132,7 +133,7 @@
 
                     {{-- GAMBAR --}}
                     <div class="w-60">
-                        <img src="{{ asset('images/girl.png') }}" class="w-full">
+                        <img src="{{ asset('images/logo-eling.png') }}" class="w-full">
                     </div>
 
                     {{-- TEXT --}}

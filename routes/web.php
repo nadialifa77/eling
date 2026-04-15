@@ -7,13 +7,7 @@ use App\Http\Controllers\TujuanController;
 use App\Http\Controllers\VersionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/pengembang', function () {
-    return view('pengembang');
-})->name('pengembang');
+Route::get('/', [BerandaController::class, 'welcome']);
 
 require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
@@ -47,4 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(JejakController::class)->group(function () {
         Route::get('/jejak', 'index')->name('jejak');
     });
+
+    Route::get('/pengembang', function () {
+        return view('pengembang');
+    })->name('pengembang');
 });

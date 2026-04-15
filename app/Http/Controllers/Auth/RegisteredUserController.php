@@ -31,8 +31,23 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email'
+            ],
+        
+            'password' => [
+                'required',
+                'confirmed',
+                Rules\Password::defaults()
+            ],
+        ], [
+            'email.unique' => 'Email sudah terdaftar, silakan login.',
+            'password.confirmed' => 'Konfirmasi password tidak sama.',
         ]);
 
         $user = User::create([

@@ -42,8 +42,8 @@
                 {{-- EMOJI (POSISI DI ATAS ✔️) --}}
                 <div class="bg-white rounded-xl p-4 flex gap-4 w-fit mb-4">
                     <span onclick="setMood(this, '😭')" class="emoji text-3xl cursor-pointer">😭</span>
-                    <span onclick="setMood(this, '🥺')" class="emoji text-3xl cursor-pointer">🥺</span>
-                    <span onclick="setMood(this, '😳')" class="emoji text-3xl cursor-pointer">😳</span>
+                    <span onclick="setMood(this, '😨')" class="emoji text-3xl cursor-pointer">😨</span>
+                    <span onclick="setMood(this, '😄')" class="emoji text-3xl cursor-pointer">😄</span>
                     <span onclick="setMood(this, '🥰')" class="emoji text-3xl cursor-pointer">🥰</span>
                     <span onclick="setMood(this, '😡')" class="emoji text-3xl cursor-pointer">😡</span>
                 </div>
@@ -63,6 +63,7 @@
                     <li>Apa tantangan yang kamu hadapi?</li>
                     <li>Apa hal kecil yang berhasil kamu lakukan?</li>
                     <li>Apa yang kamu syukuri hari ini?</li>
+                    <li>Apakah ada pertanyaan dalam hatimu yang ingin kamu jawab hari ini? Atau mungkin ada hal lain yang ingin kamu ceritakan.</li>
                 </ol>
 
                 {{-- TEXTAREA --}}

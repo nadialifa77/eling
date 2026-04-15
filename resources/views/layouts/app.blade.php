@@ -15,88 +15,122 @@
     {{-- ================= HEADER ================= --}}
     <header x-data="{ open: false }" class="fixed top-0 left-0 w-full bg-[#342967] shadow z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    
+
             {{-- LOGO --}}
             <div class="w-20">
                 <img src="{{ asset('images/logo-eling.png') }}" class="w-full">
             </div>
-    
-            {{-- ================= KALAU SUDAH LOGIN ================= --}}
+
             @auth
-    
-            {{-- HAMBURGER --}}
-            <button @click="open = !open" class="md:hidden text-white text-2xl">
-                ☰
-            </button>
-    
-            {{-- DESKTOP MENU --}}
-            <div class="hidden md:flex items-center gap-4 ml-auto">
-                <a href="{{ route('dashboard') }}" class="nav-item">🏠 Dashboard</a>
-                <a href="{{ route('tujuan') }}" class="nav-item">🎯 Arah yang Kupilih</a>
-                <a href="{{ route('cerita') }}" class="nav-item">✨ Cerita Tujuanku</a>
-                <a href="{{ route('versi') }}" class="nav-item">🏆 Versi Terbaikku</a>
-                <a href="{{ route('jejak') }}" class="nav-item">📊 Jejak Langkahku</a>
-    
-                {{-- PROFILE --}}
-                <div x-data="{ profile: false }" class="relative">
-                    <button @click="profile = !profile"
-                        class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                        👤
-                    </button>
-    
-                    <div x-show="profile" @click.away="profile = false"
-                        class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg p-2">
-    
-                        <a href="{{ route('profile.show') }}"
-                            class="block px-4 py-2 text-sm hover:bg-gray-100 rounded-lg">
-                            Profil
-                        </a>
-    
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 rounded-lg">
-                                Logout
-                            </button>
-                        </form>
-    
+
+                {{-- HAMBURGER --}}
+                <button @click="open = !open" class="md:hidden text-white text-2xl">
+                    ☰
+                </button>
+
+                {{-- DESKTOP MENU --}}
+                <div class="hidden md:flex items-center gap-4 ml-auto">
+
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-item {{ request()->routeIs('dashboard') ? 'nav-active' : '' }}">
+                        🏠 Dashboard
+                    </a>
+
+                    <a href="{{ route('versi') }}" class="nav-item {{ request()->routeIs('versi') ? 'nav-active' : '' }}">
+                        🏆 Versi Terbaikku
+                    </a>
+
+                    <a href="{{ route('tujuan') }}" class="nav-item {{ request()->routeIs('tujuan') ? 'nav-active' : '' }}">
+                        🎯 Arah yang Kupilih
+                    </a>
+
+                    <a href="{{ route('cerita') }}" class="nav-item {{ request()->routeIs('cerita') ? 'nav-active' : '' }}">
+                        ✨ Cerita Tujuanku
+                    </a>
+
+                    <a href="{{ route('jejak') }}" class="nav-item {{ request()->routeIs('jejak') ? 'nav-active' : '' }}">
+                        📊 Jejak Langkahku
+                    </a>
+
+                    {{-- PROFILE --}}
+                    <div x-data="{ profile: false }" class="relative">
+                        <button @click="profile = !profile"
+                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            👤
+                        </button>
+
+                        <div x-show="profile" @click.away="profile = false"
+                            class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg p-2">
+
+                            <a href="{{ route('profile.show') }}"
+                                class="block px-4 py-2 text-sm hover:bg-gray-100 rounded-lg">
+                                Profil
+                            </a>
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 rounded-lg">
+                                    Logout
+                                </button>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-    
+
             @endauth
-    
-            {{-- ================= KALAU BELUM LOGIN ================= --}}
+
+            {{-- ================= GUEST ================= --}}
             @guest
-            <a href="{{ route('login') }}"
-                class="ml-auto bg-yellow-500 text-black px-5 py-2 rounded-xl font-semibold hover:bg-yellow-600 transition">
-                Mulai
-            </a>
+                <a href="{{ route('login') }}"
+                    class="ml-auto bg-yellow-500 text-black px-5 py-2 rounded-xl font-semibold hover:bg-yellow-600 transition">
+                    Mulai
+                </a>
             @endguest
-    
+
         </div>
-    
-        {{-- ================= MOBILE MENU (LOGIN SAJA) ================= --}}
+
+        {{-- ================= MOBILE MENU ================= --}}
         @auth
-        <div x-show="open" x-transition class="md:hidden bg-[#342967] px-6 pb-4 space-y-3">
-    
-            <a href="{{ route('dashboard') }}" class="mobile-nav">🏠 Dashboard</a>
-            <a href="{{ route('tujuan') }}" class="mobile-nav">🎯 Arah yang Kupilih</a>
-            <a href="{{ route('cerita') }}" class="mobile-nav">✨ Cerita Tujuanku</a>
-            <a href="{{ route('versi') }}" class="mobile-nav">🏆 Versi Terbaikku</a>
-            <a href="{{ route('jejak') }}" class="mobile-nav">📊 Jejak Langkahku</a>
-    
-            <hr class="border-gray-500">
-    
-            <a href="{{ route('profile.show') }}" class="mobile-nav">👤 Profil</a>
-    
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="mobile-nav w-full text-left">🚪 Logout</button>
-            </form>
-    
-        </div>
+            <div x-show="open" x-transition class="md:hidden bg-[#342967] px-6 pb-4 space-y-3">
+
+                <a href="{{ route('dashboard') }}"
+                    class="mobile-nav {{ request()->routeIs('dashboard') ? 'bg-yellow-400 text-black' : '' }}">
+                    🏠 Dashboard
+                </a>
+
+                <a href="{{ route('tujuan') }}"
+                    class="mobile-nav {{ request()->routeIs('tujuan') ? 'bg-yellow-400 text-black' : '' }}">
+                    🎯 Arah yang Kupilih
+                </a>
+
+                <a href="{{ route('cerita') }}"
+                    class="mobile-nav {{ request()->routeIs('cerita') ? 'bg-yellow-400 text-black' : '' }}">
+                    ✨ Cerita Tujuanku
+                </a>
+
+                <a href="{{ route('versi') }}"
+                    class="mobile-nav {{ request()->routeIs('versi') ? 'bg-yellow-400 text-black' : '' }}">
+                    🏆 Versi Terbaikku
+                </a>
+
+                <a href="{{ route('jejak') }}"
+                    class="mobile-nav {{ request()->routeIs('jejak') ? 'bg-yellow-400 text-black' : '' }}">
+                    📊 Jejak Langkahku
+                </a>
+
+                <hr class="border-gray-500">
+
+                <a href="{{ route('profile.show') }}" class="mobile-nav">👤 Profil</a>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="mobile-nav w-full text-left">🚪 Logout</button>
+                </form>
+
+            </div>
         @endauth
-    
+
     </header>
 
     {{-- ================= CONTENT ================= --}}
@@ -109,7 +143,6 @@
 
         </div>
     </main>
-
 
     {{-- ================= FOOTER ================= --}}
     <footer class="w-full bg-[#342967] text-white py-6 mt-auto">
