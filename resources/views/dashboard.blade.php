@@ -62,7 +62,7 @@
                         dahulu.
                     </li>
                     <li>
-                        Setelah itu, pengguna bisa melakukan registrasi akun lalu login agar dapat menggunakan website ini.
+                        Setelah itu, pengguna bisa mendaftarkan akun lalu masuk agar dapat menggunakan website ini.
                     </li>
                 </ol>
             </div>
