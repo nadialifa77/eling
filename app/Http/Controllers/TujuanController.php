@@ -37,12 +37,18 @@ class TujuanController extends Controller
 
     public function addSub(Request $request)
     {
+        $request->validate([
+            'judul' => 'required|string|max:255'
+        ], [
+            'judul.required' => 'Sub tujuan tidak boleh kosong!'
+        ]);
+
         SubTujuan::create([
             'tujuan_id' => $request->tujuan_id,
             'judul' => $request->judul
         ]);
 
-        return back();
+        return back()->with('success', 'Sub tujuan berhasil ditambahkan!');
     }
 
     public function toggle($id)
