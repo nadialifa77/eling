@@ -92,8 +92,8 @@
             {{-- CARD 2 --}}
             <div @click="active = active === 'purpose' ? null : 'purpose'"
                 class="bg-gray-200 rounded-3xl p-6 shadow-sm 
-                    flex flex-col items-center justify-center text-center
-                    hover:shadow-md transition h-48 cursor-pointer">
+                        flex flex-col items-center justify-center text-center
+                        hover:shadow-md hover:-translate-y-1 transition duration-300 h-48 cursor-pointer">
 
                 <div class="w-28 mb-4">
                     <img src="{{ asset('images/icon.jpg') }}" alt="Purpose" class="w-full mx-auto">
@@ -110,11 +110,11 @@
                     class="bg-gray-200 rounded-3xl p-6 shadow-sm 
                         flex flex-col items-center justify-center text-center
                         hover:shadow-md hover:scale-105 transition h-48 cursor-pointer">
-            
+
                     <div class="w-28 mb-4">
                         <img src="{{ asset('images/book.png') }}" alt="Buku" class="w-full mx-auto">
                     </div>
-            
+
                     <h3 class="font-semibold">
                         Buku Panduan
                     </h3>
