@@ -8,6 +8,9 @@ use App\Http\Controllers\VersionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BerandaController::class, 'welcome']);
+Route::get('/faq', function () {
+    return view('faq');
+})->name('faq');
 
 require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {

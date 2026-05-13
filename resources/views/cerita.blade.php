@@ -43,13 +43,13 @@
                 <div class="bg-white rounded-xl p-4 flex gap-4 w-fit mb-4">
                     <span onclick="setMood(this, '😭')" class="emoji text-3xl cursor-pointer">😭</span>
                     <span onclick="setMood(this, '😨')" class="emoji text-3xl cursor-pointer">😨</span>
+                    <span onclick="setMood(this, '😐')" class="emoji text-3xl cursor-pointer">😐</span>
                     <span onclick="setMood(this, '😄')" class="emoji text-3xl cursor-pointer">😄</span>
-                    <span onclick="setMood(this, '🥰')" class="emoji text-3xl cursor-pointer">🥰</span>
                     <span onclick="setMood(this, '😡')" class="emoji text-3xl cursor-pointer">😡</span>
                 </div>
 
                 {{-- PREVIEW --}}
-                <div id="selectedMood" class="mb-4 text-2xl"></div>
+                <div id="selectedMood" class="mb-4 text-xl"></div>
 
                 {{-- PERTANYAAN --}}
                 <p class="text-sm mb-2 font-semibold">
@@ -120,22 +120,19 @@
         </div>
 
     </div>
-@endsection
+</div>
 
 <script>
     function setMood(el, emoji) {
-        // simpan ke input
         document.getElementById('mood').value = emoji;
 
-        // tampilkan preview
-        document.getElementById('selectedMood').innerText = "Mood dipilih: " + emoji;
+        document.getElementById('selectedMood').innerText =
+            "Mood dipilih: " + emoji + " Terima kasih sudah jujur atas perasaanmu🫰🏻";
 
-        // reset semua emoji
         document.querySelectorAll('.emoji').forEach(e => {
             e.classList.remove('scale-125', 'ring-2', 'ring-yellow-400');
         });
 
-        // highlight yang dipilih
         el.classList.add('scale-125', 'ring-2', 'ring-yellow-400');
     }
 
@@ -154,3 +151,4 @@
         }
     }, 3000);
 </script>
+@endsection

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="h-[calc(100vh-80px)] flex flex-col justify-between px-6 py-6 overflow-hidden">
+<div class="min-h-[calc(100vh-80px)] flex flex-col justify-between px-6 py-6 overflow-hidden">
 
     {{-- JUDUL --}}
     <h1 class="text-3xl md:text-4xl font-bold text-center text-yellow-400 mb-10">
@@ -15,16 +15,19 @@
     @php
         $developers = [
             [
-                'nama' => 'Dr. Ribut Purwaningrum, M. Pd. ',
+                'nama' => 'Dr. Ribut Purwaningrum, M. Pd.',
+                'gelar' => 'Dosen Program Studi Bimbingan dan Konseling UNS',
                 'foto' => asset('images/dosen.jpg'),
             ],
             [
                 'nama' => 'Davin Maulana Viananda',
+                'gelar' => 'Mahasiswa Bimbingan dan Konseling UNS Angkatan 2022',
                 'foto' => asset('images/dapin.jpg'),
             ],
             
             [
                 'nama' => 'Nadia Alifa, S.Kom.',
+                'gelar' => 'Pengembang Website',
                 'foto' => asset('images/nadia.jpeg'),
             ],
         ];
@@ -46,6 +49,10 @@
 
                 <p class="mt-3 font-semibold text-black text-lg text-center">
                     {{ $dev['nama'] }}
+                </p>
+
+                <p class="text-sm text-gray-700 text-center">
+                    {{ $dev['gelar'] }}
                 </p>
 
             </div>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>@yield('title', 'Eling')</title>
+    <link rel="icon" href="{{ asset('images/eling.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -99,6 +100,11 @@
                     🏠 Dashboard
                 </a>
 
+                <a href="{{ route('versi') }}"
+                    class="mobile-nav {{ request()->routeIs('versi') ? 'bg-yellow-400 text-black' : '' }}">
+                    🏆 Versi Terbaikku
+                </a>
+
                 <a href="{{ route('tujuan') }}"
                     class="mobile-nav {{ request()->routeIs('tujuan') ? 'bg-yellow-400 text-black' : '' }}">
                     🎯 Arah yang Kupilih
@@ -107,11 +113,6 @@
                 <a href="{{ route('cerita') }}"
                     class="mobile-nav {{ request()->routeIs('cerita') ? 'bg-yellow-400 text-black' : '' }}">
                     ✨ Cerita Tujuanku
-                </a>
-
-                <a href="{{ route('versi') }}"
-                    class="mobile-nav {{ request()->routeIs('versi') ? 'bg-yellow-400 text-black' : '' }}">
-                    🏆 Versi Terbaikku
                 </a>
 
                 <a href="{{ route('jejak') }}"
@@ -155,10 +156,10 @@
                 </a>
             @endauth
 
-            <div class="text-center mt-4 md:mt-0 md:ml-auto">
-                <p class="font-semibold">Contact Us :</p>
-                <p class="text-sm">elingwithpurpose@gmail.com</p>
-            </div>
+            <a href="{{ route('faq') }}"
+                class="bg-black px-6 py-2 text-center mt-4 md:mt-0 md:ml-auto hover:text-yellow-300 transition">
+                <p class="font-semibold">Bantuan</p>
+            </a>
 
         </div>
     </footer>

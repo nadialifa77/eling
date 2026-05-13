@@ -22,7 +22,7 @@ class TujuanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:255'
+            'judul' => 'required|string|max:30'
         ], [
             'judul.required' => 'Tujuan tidak boleh kosong!'
         ]);
@@ -48,7 +48,10 @@ class TujuanController extends Controller
             'judul' => $request->judul
         ]);
 
-        return back()->with('success', 'Sub tujuan berhasil ditambahkan!');
+        return redirect()
+            ->route('tujuan')
+            ->with('success', 'Sub tujuan berhasil ditambahkan!')
+            ->withFragment('roadmap');
     }
 
     public function toggle($id)

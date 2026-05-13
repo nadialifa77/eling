@@ -28,30 +28,31 @@ class JejakController extends Controller
         $progress = $totalSub > 0 ? round(($doneSub / $totalSub) * 100) : 0;
 
         // ================= MOOD 14 HARI =================
-        $dates = [];
-        $moods = [];
+$dates = [];
 
-        for ($i = 13; $i >= 0; $i--) {
-            $date = Carbon::now()->subDays($i)->format('Y-m-d');
+$moodData = [
+    '😭' => [],
+    '😨' => [],
+    '😐' => [],
+    '😄' => [],
+    '😡' => [],
+];
 
-            $cerita = Cerita::where('user_id', Auth::id())
-                ->whereDate('created_at', $date)
-                ->latest()
-                ->first();
+for ($i = 13; $i >= 0; $i--) {
+    $date = Carbon::now()->subDays($i)->format('Y-m-d');
 
-            $dates[] = Carbon::parse($date)->format('d M');
+    $dates[] = Carbon::parse($date)->format('d M');
 
-            // mapping emoji → angka biar bisa di-chart
-            $moods[] = match ($cerita->mood ?? null) {
-                '😭' => 1,
-                '🥺' => 2,
-                '😳' => 3,
-                '😡' => 2,
-                '🥰' => 5,
-                default => 0
-            };
-        }
+    $ceritas = Cerita::where('user_id', Auth::id())
+        ->whereDate('created_at', $date)
+        ->get();
 
-        return view('jejak', compact('progress', 'dates', 'moods'));
+    foreach ($moodData as $emoji => $value) {
+        $moodData[$emoji][] =
+            $ceritas->contains('mood', $emoji) ? 1 : null;
+    }
+}
+
+return view('jejak', compact('progress', 'dates', 'moodData'));
     }
 }
