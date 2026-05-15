@@ -49,6 +49,7 @@
                 </h3>
 
                 <ol class="list-decimal ml-6 text-sm leading-relaxed space-y-2">
+                    <li>Klik tombol mulai untuk <i>log in</i> atau regristrasi.</li>
                     <li>
                         Penggunaan website eling dimulai dari membaca
                         <strong>“Apa itu Eling”</strong> yang ada di bawah ini.
@@ -62,7 +63,7 @@
                         <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih dahulu.
                     </li>
                     <li>
-                        Setelah itu, pengguna bisa mendaftarkan akun lalu masuk agar dapat menggunakan website ini.
+                        Langkah pertama bisa dimulai dengan membuka vitur <strong>“Versi Terbaikku”</strong>
                     </li>
                 </ol>
             </div>
