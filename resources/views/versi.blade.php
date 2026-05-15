@@ -30,9 +30,8 @@
         {{-- POPUP INFO --}}
         <div x-show="info" @click.away="info = false" x-transition
             class="absolute top-14 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
-            Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari.
-            Kamu bisa lebih sadar dengan apa yang sedang dirasakan dan dialami,
-            bukan sekadar mencatat kegiatan.
+            Fitur untuk membantu kamu lebih percaya pada kemampuan diri sendiri.
+            Kamu diajak menuliskan kelebihan, harapan, dan gambaran diri yang ingin dicapai di masa depan.
         </div>
 
         {{-- ================= JUDUL ================= --}}
@@ -60,7 +59,7 @@
 
             {{-- TEXTAREA HARAPAN --}}
             <textarea name="harapan" class="w-full h-32 p-4 rounded-xl bg-white border-none focus:ring-2 focus:ring-purple-400 mb-8"
-                placeholder=""></textarea>
+                placeholder="">{{ old('harapan') }}</textarea>
 
             {{-- ================= PESAN ================= --}}
             <h2 class="text-lg font-bold flex items-center gap-2 mb-2">
@@ -80,7 +79,7 @@
 
             {{-- TEXTAREA PESAN --}}
             <textarea name="pesan" class="w-full h-40 p-4 rounded-xl bg-white border-none focus:ring-2 focus:ring-purple-400 mb-6"
-                placeholder=""></textarea>
+                placeholder="">{{ old('pesan') }}</textarea>
 
             {{-- BUTTON --}}
             <button type="submit"

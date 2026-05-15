@@ -58,8 +58,7 @@
                     </li>
                     <li>
                         Selanjutnya, pengguna dapat menekan tombol
-                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih
-                        dahulu.
+                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih dahulu.
                     </li>
                     <li>
                         Setelah itu, pengguna bisa mendaftarkan akun lalu masuk agar dapat menggunakan website ini.
@@ -364,9 +363,8 @@
              @click.away="info = false"
              x-transition
              class="absolute top-14 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
-            Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari.
-            Kamu bisa lebih sadar dengan apa yang sedang dirasakan dan dialami,
-            bukan sekadar mencatat kegiatan.
+             Yuk isi bagian ini di fitur Versi Terbaikku Nanti, 
+             agar kamu bisa melihat kembali harapan dan pesan untuk dirimu di masa depan.
         </div>
 
             <h2 class="text-xl font-bold mb-4 text-center">

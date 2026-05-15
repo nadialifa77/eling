@@ -43,9 +43,8 @@
                 {{-- popup info --}}
                 <div x-show="info" @click.away="info = false" x-transition
                     class="absolute top-16 right-6 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
-                    Fitur untuk membantu kamu lebih percaya pada kemampuan diri sendiri.
-                    Kamu diajak menuliskan kelebihan, harapan, dan gambaran diri yang ingin
-                    dicapai di masa depan.
+                    Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari. 
+                    Kamu bisa lebih sadar dengan apa yang sedang dirasakan dan dialami, bukan sekadar mencatat kegiatan.
                 </div>
 
                 <p class="text-sm mb-4">
@@ -53,19 +52,42 @@
                 </p>
 
                 {{-- INPUT MOOD --}}
-                <input type="hidden" name="mood" id="mood">
+                <input type="hidden" name="mood" id="mood" value="{{ old('mood') }}">
 
                 {{-- EMOJI (POSISI DI ATAS ✔️) --}}
                 <div class="bg-white rounded-xl p-4 flex gap-4 w-fit mb-4">
-                    <span onclick="setMood(this, '😭')" class="emoji text-3xl cursor-pointer">😭</span>
-                    <span onclick="setMood(this, '😨')" class="emoji text-3xl cursor-pointer">😨</span>
-                    <span onclick="setMood(this, '😐')" class="emoji text-3xl cursor-pointer">😐</span>
-                    <span onclick="setMood(this, '😄')" class="emoji text-3xl cursor-pointer">😄</span>
-                    <span onclick="setMood(this, '😡')" class="emoji text-3xl cursor-pointer">😡</span>
+                    <span onclick="setMood(this, '😭')"
+                        class="emoji text-3xl cursor-pointer {{ old('mood') == '😭' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
+                        😭
+                    </span>
+                
+                    <span onclick="setMood(this, '😨')"
+                        class="emoji text-3xl cursor-pointer {{ old('mood') == '😨' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
+                        😨
+                    </span>
+                
+                    <span onclick="setMood(this, '😐')"
+                        class="emoji text-3xl cursor-pointer {{ old('mood') == '😐' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
+                        😐
+                    </span>
+                
+                    <span onclick="setMood(this, '😄')"
+                        class="emoji text-3xl cursor-pointer {{ old('mood') == '😄' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
+                        😄
+                    </span>
+                
+                    <span onclick="setMood(this, '😡')"
+                        class="emoji text-3xl cursor-pointer {{ old('mood') == '😡' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
+                        😡
+                    </span>
                 </div>
 
                 {{-- PREVIEW --}}
-                <div id="selectedMood" class="mb-4 text-xl"></div>
+                <div id="selectedMood" class="mb-4 text-xl">
+                    @if(old('mood'))
+                        Mood dipilih: {{ old('mood') }} Terima kasih sudah jujur atas perasaanmu🫰🏻
+                    @endif
+                </div>
 
                 {{-- PERTANYAAN --}}
                 <p class="text-sm mb-2 font-semibold">
@@ -84,7 +106,7 @@
                 </ol>
 
                 {{-- TEXTAREA --}}
-                <textarea name="isi" class="w-full h-32 p-4 rounded-xl border mb-4" placeholder="Tulis ceritamu..."></textarea>
+                <textarea name="isi" class="w-full h-32 p-4 rounded-xl border mb-4" placeholder="Tulis ceritamu..." >{{ old('isi') }}</textarea>
 
                 {{-- BUTTON --}}
                 <button class="w-full bg-yellow-500 py-3 rounded-xl font-semibold">
