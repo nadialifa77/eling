@@ -22,22 +22,57 @@
     <div class="max-w-5xl mx-auto mt-6 mb-20 space-y-8 px-4 md:px-0">
 
         {{-- ================= INPUT TUJUAN ================= --}}
-        <div id="roadmap" class="bg-gray-200 rounded-2xl p-6 shadow">
+        <div x-data="{ info: false }" id="roadmap" class="relative bg-gray-200 rounded-2xl p-6 shadow">
 
-            <h2 class="text-lg font-bold mb-2">🎯 Spill The Tea</h2>
-
-            <ol class="text-sm mb-4 ml-4 list-decimal">
-                <li>Apa tujuan yang sedang kamu kejar sekarang?</li>
-                <li>Kamu boleh menuliskan tujuan yang kecil atau yang besar ya best.</li>
-                <p>Tulis maksimal 30 kata.</p>
-            </ol>
-
+            {{-- HEADER --}}
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold">🎯 Spill The Tea</h2>
+        
+                <button
+                    type="button"
+                    @click="info = !info"
+                    class="w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-600 transition">
+                    i
+                </button>
+            </div>
+        
+            {{-- popup info --}}
+            <div
+                x-show="info"
+                @click.away="info = false"
+                x-transition
+                class="absolute top-16 right-6 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
+                Fitur untuk menuliskan langkah dan proses menuju tujuan yang ingin dicapai.
+                Kamu bisa melihat progres diri dengan lebih jelas dan terarah.
+            </div>
+        
+            {{-- PETUNJUK --}}
+            <div class="text-sm text-gray-700 mb-5">
+                <p class="mb-2 font-medium">
+                    Bagian ini kamu bisa mulai isi dengan:
+                </p>
+        
+                <ol class="list-decimal ml-5 space-y-1">
+                    <li>Apa tujuan yang sedang kamu kejar sekarang?</li>
+                    <li>Kamu boleh menuliskan tujuan yang kecil atau yang besar ya best.</li>
+                </ol>
+        
+                <p class="mt-2 text-gray-600 italic">
+                    Tulis maksimal 30 kata.
+                </p>
+            </div>
+        
             <form action="{{ route('tujuan.store') }}" method="POST">
                 @csrf
-
-                <textarea name="judul" class="w-full h-24 rounded-xl p-4 border mb-4" placeholder="Tulis tujuan kamu..."></textarea>
-
-                <button class="w-full bg-yellow-500 py-3 rounded-xl font-semibold hover:bg-yellow-600 transition">
+        
+                <textarea
+                    name="judul"
+                    class="w-full h-24 rounded-xl p-4 border border-gray-300 focus:ring-2 focus:ring-yellow-400 mb-4"
+                    placeholder="Tulis tujuan kamu..."
+                ></textarea>
+        
+                <button
+                    class="w-full bg-yellow-500 py-3 rounded-xl font-semibold hover:bg-yellow-600 transition">
                     Tambah Tujuan
                 </button>
             </form>
@@ -52,7 +87,7 @@
                 Ini adalah ruang perjalananmu 🌿<br>
                 Catat tujuanmu, pecah menjadi langkah-langkah kecil, lalu rayakan setiap progresnya ✨
             </p>
-            
+
             <div class="space-y-4">
 
                 @if ($tujuans->isEmpty())
@@ -60,16 +95,15 @@
                         <div class="text-5xl mb-3">🗺️</div>
 
                         <h3 class="text-lg font-semibold text-gray-700 mb-2">
-                            Roadmap kamu masih kosong
+                            Kamu belum bercerita
                         </h3>
 
                         <p class="text-gray-500 text-sm">
-                            Yuk tulis tujuan pertamamu di atas, lalu susun langkah-langkah kecil
-                            untuk mencapainya 🌱
+                            Yuk, tuliskan cerita kamu di atas, 
+                            lalu kenangan kamu akan muncul di sini layaknya sebuah lini masa dalam berproses menjadi lebih baik.
                         </p>
                     </div>
                 @else
-
                     @foreach ($tujuans as $tujuan)
                         @php
                             $total = $tujuan->subTujuans->count();
@@ -165,7 +199,7 @@
 
                         </div>
                     @endforeach
-                @endif        
+                @endif
             </div>
 
         </div>

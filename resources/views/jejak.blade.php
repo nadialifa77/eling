@@ -4,7 +4,21 @@
     <div class="max-w-5xl mx-auto mt-6 mb-20 space-y-6">
 
         {{-- ================= PROGRESS ================= --}}
-        <div class="bg-gray-200 rounded-2xl p-6 shadow flex flex-col md:flex-row items-center gap-6">
+        <div x-data="{ info: false }"
+            class="relative bg-gray-200 rounded-2xl p-6 shadow flex flex-col md:flex-row items-center gap-6">
+
+            {{-- tombol info --}}
+            <button type="button" @click="info = !info"
+                class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-600 transition">
+                i
+            </button>
+
+            {{-- popup info --}}
+            <div x-show="info" @click.away="info = false" x-transition
+                class="absolute top-16 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
+                Fitur untuk melihat kembali perjalanan, perkembangan emosi,
+                dan tujuan yang sudah atau sedang dicapai.
+            </div>
 
             <div class="w-40 h-40">
                 <canvas id="progressChart"></canvas>
@@ -84,82 +98,81 @@
 
         // ================= LINE CHART =================
         const moodChart = new Chart(document.getElementById('moodChart'), {
-        type: 'line',
-        data: {
-            labels: {!! json_encode($dates) !!},
-            datasets: [
-                {
-                    label: '😭',
-                    data: {!! json_encode($moodData['😭']) !!},
-                    borderColor: '#ef4444',
-                    backgroundColor: '#ef4444',
-                    borderWidth: 3,
-                    tension: 0.3,
-                    fill: false,
-                    pointRadius: 4
-                },
-                {
-                    label: '😨',
-                    data: {!! json_encode($moodData['😨']) !!},
-                    borderColor: '#3b82f6',
-                    backgroundColor: '#3b82f6',
-                    borderWidth: 3,
-                    tension: 0.3,
-                    fill: false,
-                    pointRadius: 4
-                },
-                {
-                    label: '😐',
-                    data: {!! json_encode($moodData['😐']) !!},
-                    borderColor: '#6b7280',
-                    backgroundColor: '#6b7280',
-                    borderWidth: 3,
-                    tension: 0.3,
-                    fill: false,
-                    pointRadius: 4
-                },
-                {
-                    label: '😄',
-                    data: {!! json_encode($moodData['😄']) !!},
-                    borderColor: '#22c55e',
-                    backgroundColor: '#22c55e',
-                    borderWidth: 3,
-                    tension: 0.3,
-                    fill: false,
-                    pointRadius: 4
-                },
-                {
-                    label: '😡',
-                    data: {!! json_encode($moodData['😡']) !!},
-                    borderColor: '#eab308',
-                    backgroundColor: '#eab308',
-                    borderWidth: 3,
-                    tension: 0.3,
-                    fill: false,
-                    pointRadius: 4
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top'
-                }
+            type: 'line',
+            data: {
+                labels: {!! json_encode($dates) !!},
+                datasets: [{
+                        label: '😭',
+                        data: {!! json_encode($moodData['😭']) !!},
+                        borderColor: '#ef4444',
+                        backgroundColor: '#ef4444',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 4
+                    },
+                    {
+                        label: '😨',
+                        data: {!! json_encode($moodData['😨']) !!},
+                        borderColor: '#3b82f6',
+                        backgroundColor: '#3b82f6',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 4
+                    },
+                    {
+                        label: '😐',
+                        data: {!! json_encode($moodData['😐']) !!},
+                        borderColor: '#6b7280',
+                        backgroundColor: '#6b7280',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 4
+                    },
+                    {
+                        label: '😄',
+                        data: {!! json_encode($moodData['😄']) !!},
+                        borderColor: '#22c55e',
+                        backgroundColor: '#22c55e',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 4
+                    },
+                    {
+                        label: '😡',
+                        data: {!! json_encode($moodData['😡']) !!},
+                        borderColor: '#eab308',
+                        backgroundColor: '#eab308',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false,
+                        pointRadius: 4
+                    }
+                ]
             },
-            scales: {
-                y: {
-                    min: 0,
-                    max: 1,
-                    ticks: {
-                        stepSize: 1,
-                        callback: function(value) {
-                            return value === 1 ? 'Ada' : '';
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 1,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                return value === 1 ? 'Ada' : '';
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
     </script>
 @endsection

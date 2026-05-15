@@ -23,14 +23,30 @@
     <div class="max-w-5xl mx-auto mt-6 mb-20 space-y-8">
 
         {{-- ================= CERITA ================= --}}
-        <div class="bg-gray-200 rounded-2xl p-6 shadow">
+        <div x-data="{ info: false }" class="relative bg-gray-200 rounded-2xl p-6 shadow">
 
             <form action="{{ route('cerita.store') }}" method="POST">
                 @csrf
 
-                <h2 class="text-lg font-bold mb-2">
-                    ✨ Cerita di Balik Tujuanku
-                </h2>
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-bold">
+                        ✨ Cerita di Balik Tujuanku
+                    </h2>
+
+                    {{-- tombol info --}}
+                    <button type="button" @click="info = !info"
+                        class="w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-600 transition">
+                        i
+                    </button>
+                </div>
+
+                {{-- popup info --}}
+                <div x-show="info" @click.away="info = false" x-transition
+                    class="absolute top-16 right-6 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
+                    Fitur untuk membantu kamu lebih percaya pada kemampuan diri sendiri.
+                    Kamu diajak menuliskan kelebihan, harapan, dan gambaran diri yang ingin
+                    dicapai di masa depan.
+                </div>
 
                 <p class="text-sm mb-4">
                     Coba cek perasaanmu hari ini. Kamu lagi merasa apa?
@@ -63,11 +79,12 @@
                     <li>Apa tantangan yang kamu hadapi?</li>
                     <li>Apa hal kecil yang berhasil kamu lakukan?</li>
                     <li>Apa yang kamu syukuri hari ini?</li>
-                    <li>Apakah ada pertanyaan dalam hatimu yang ingin kamu jawab hari ini? Atau mungkin ada hal lain yang ingin kamu ceritakan.</li>
+                    <li>Apakah ada pertanyaan dalam hatimu yang ingin kamu jawab hari ini? Atau mungkin ada hal lain yang
+                        ingin kamu ceritakan.</li>
                 </ol>
 
                 {{-- TEXTAREA --}}
-                <textarea name="isi" class="w-full h-32 p-4 rounded-xl border mb-4" placeholder="Tulis ceritamu..." ></textarea>
+                <textarea name="isi" class="w-full h-32 p-4 rounded-xl border mb-4" placeholder="Tulis ceritamu..."></textarea>
 
                 {{-- BUTTON --}}
                 <button class="w-full bg-yellow-500 py-3 rounded-xl font-semibold">
@@ -82,10 +99,15 @@
         <div class="bg-gray-200 rounded-2xl p-6 shadow">
 
             {{-- HEADER --}}
-            <div class="flex items-center gap-2 mb-4">
+            <div class="flex items-center gap-2 mb-2">
                 <span class="text-2xl">📙</span>
                 <h2 class="font-semibold text-lg">Lini Masa</h2>
             </div>
+
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                Ini adalah ruang cerita hidupmu 🌱<br>
+                Tuangkan cerita, perasaan, dan pengalamanmu tanpa takut dihakimi, lalu temukan makna dari setiap perjalananmu ✨
+            </p>
 
             {{-- ISI --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -112,7 +134,18 @@
 
                     </div>
                 @empty
-                    <p class="text-sm text-gray-500">Belum ada cerita...</p>
+                    <div class="bg-white rounded-xl p-8 text-center border-2 border-dashed border-gray-300 md:col-span-2">
+                        <div class="text-5xl mb-3">📖</div>
+
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">
+                            Lini Masa kamu masih kosong
+                        </h3>
+
+                        <p class="text-gray-500 text-sm">
+                            Yuk mulai tulis cerita pertamamu hari ini,
+                            supaya perjalanan dan perasaanmu bisa terekam di sini ✨
+                        </p>
+                    </div>
                 @endforelse
 
             </div>
@@ -120,35 +153,35 @@
         </div>
 
     </div>
-</div>
+    </div>
 
-<script>
-    function setMood(el, emoji) {
-        document.getElementById('mood').value = emoji;
+    <script>
+        function setMood(el, emoji) {
+            document.getElementById('mood').value = emoji;
 
-        document.getElementById('selectedMood').innerText =
-            "Mood dipilih: " + emoji + " Terima kasih sudah jujur atas perasaanmu🫰🏻";
+            document.getElementById('selectedMood').innerText =
+                "Mood dipilih: " + emoji + " Terima kasih sudah jujur atas perasaanmu🫰🏻";
 
-        document.querySelectorAll('.emoji').forEach(e => {
-            e.classList.remove('scale-125', 'ring-2', 'ring-yellow-400');
-        });
+            document.querySelectorAll('.emoji').forEach(e => {
+                e.classList.remove('scale-125', 'ring-2', 'ring-yellow-400');
+            });
 
-        el.classList.add('scale-125', 'ring-2', 'ring-yellow-400');
-    }
-
-    setTimeout(() => {
-        const error = document.getElementById('alertError');
-        const success = document.getElementById('alertSuccess');
-
-        if (error) {
-            error.style.opacity = '0';
-            setTimeout(() => error.remove(), 500);
+            el.classList.add('scale-125', 'ring-2', 'ring-yellow-400');
         }
 
-        if (success) {
-            success.style.opacity = '0';
-            setTimeout(() => success.remove(), 500);
-        }
-    }, 3000);
-</script>
+        setTimeout(() => {
+            const error = document.getElementById('alertError');
+            const success = document.getElementById('alertSuccess');
+
+            if (error) {
+                error.style.opacity = '0';
+                setTimeout(() => error.remove(), 500);
+            }
+
+            if (success) {
+                success.style.opacity = '0';
+                setTimeout(() => success.remove(), 500);
+            }
+        }, 3000);
+    </script>
 @endsection

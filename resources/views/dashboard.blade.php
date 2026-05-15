@@ -144,15 +144,14 @@
                         </h2>
 
                         <p class="mb-4">
-                            Eling adalah media <i>digital journaling</i> berbasis website yang
-                            mengadaptasi konsep <i>bullet journaling</i> dengan tujuan untuk
-                            memfasilitasi peserta didik dalam mengelola <i>purpose in life</i>.
+                            Eling adalah media <i>digital journaling</i> 
+                            berbasis website yang dapat membantu kamu memahami diri, 
+                            mengelola tujuan hidup, dan merefleksikan pengalaman sehari-hari dengan lebih terarah.
                         </p>
 
                         <p>
-                            Media ini diharapkan dapat membantu peserta didik menuliskan pengalaman,
-                            mengelola tujuan, dan memaknai setiap pengalaman secara lebih terstruktur
-                            dalam satu media yang terintegrasi.
+                            Di Eling, kamu dapat menuliskan cerita, perasaan, 
+                            harapan, serta target yang ingin dicapai dalam satu tempat yang praktis dan mudah digunakan
                         </p>
                     </div>
 
@@ -168,14 +167,25 @@
                     {{-- ELING BUAT APA --}}
                     <div class="bg-gray-200 rounded-3xl p-6">
                         <h3 class="font-semibold text-lg mb-3">
-                            Eling Buat apa?
+                            Eling Buat Apa?
                         </h3>
-
-                        <p class="text-sm leading-relaxed">
-                            Eling dapat digunakan sebagai <i>self media</i> bagi peserta didik untuk membantu
-                            menuliskan pengalaman, mengelola tujuan, dan memaknai setiap pengalaman yang ada.
+                
+                        <p class="text-sm leading-relaxed mb-3">
+                            Eling dapat membantu kamu untuk:
+                        </p>
+                
+                        <ul class="list-disc ml-6 text-sm leading-relaxed space-y-1">
+                            <li>menuliskan pengalaman dan perasaan yang sedang dialami,</li>
+                            <li>mengatur tujuan yang ingin dicapai,</li>
+                            <li>memahami perkembangan diri,</li>
+                            <li>dan memaknai setiap pengalaman dalam hidup.</li>
+                        </ul>
+                
+                        <p class="text-sm leading-relaxed mt-3">
+                            Dengan Eling, kamu dapat lebih teratur dalam melakukan refleksi diri sehari-hari.
                         </p>
                     </div>
+                
                 </div>
 
                 {{-- KANAN --}}
@@ -185,13 +195,12 @@
                     </h3>
 
                     <p class="mb-4 text-sm leading-relaxed">
-                        Guru BK sebagai fasilitator yang mengenalkan dan memberikan arahan pada peserta didik tentang cara
-                        penggunaan media.
+                        Guru BK akan membantu kamu memahami cara menggunakan Eling 
+                        dan memberikan pendampingan ketika mengalami kesulitan dalam proses refleksi diri maupun pengelolaan tujuan hidup.
                     </p>
 
                     <p class="text-sm leading-relaxed">
-                        Guru BK bisa memberikan pendampingan pada peserta didik ketika mengalami kesulitan dalam proses
-                        refleksi dan pengelolaan tujuan yang dicapai
+                        Guru BK juga dapat menjadi tempat berdiskusi agar kamu lebih memahami potensi dan perkembangan diri.
                     </p>
                 </div>
 
@@ -341,7 +350,24 @@
     </div>
 
     @if ($version)
-        <div class="mt-10 bg-white rounded-2xl p-6 shadow max-w-3xl mx-auto">
+    <div x-data="{ info:false }"
+         class="relative mt-10 bg-white rounded-2xl p-6 shadow max-w-3xl mx-auto">
+
+        {{-- tombol info --}}
+        <button @click="info = !info"
+            class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-700 transition">
+            i
+        </button>
+
+        {{-- popup info --}}
+        <div x-show="info"
+             @click.away="info = false"
+             x-transition
+             class="absolute top-14 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
+            Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari.
+            Kamu bisa lebih sadar dengan apa yang sedang dirasakan dan dialami,
+            bukan sekadar mencatat kegiatan.
+        </div>
 
             <h2 class="text-xl font-bold mb-4 text-center">
                 🌟 Versi Terbaikku Nanti

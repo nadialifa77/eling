@@ -1,27 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto mt-6">
+    <div class="max-w-4xl mx-auto mt-6">
 
-    {{-- VALIDASI --}}
-    @if($errors->has('custom'))
-        <div id="alertError"
-            class="bg-red-100 text-red-600 px-4 py-3 rounded-xl mb-4 transition-opacity duration-500">
-            {{ $errors->first('custom') }}
-        </div>
-    @endif
+        {{-- VALIDASI --}}
+        @if ($errors->has('custom'))
+            <div id="alertError" class="bg-red-100 text-red-600 px-4 py-3 rounded-xl mb-4 transition-opacity duration-500">
+                {{ $errors->first('custom') }}
+            </div>
+        @endif
 
         {{-- SUCCESS --}}
-    @if(session('success'))
-    <div id="alertSuccess"
-        class="bg-green-100 text-green-700 px-4 py-3 rounded-xl mb-4 transition-opacity duration-500">
-        {{ session('success') }}
-    </div>
-@endif
+        @if (session('success'))
+            <div id="alertSuccess"
+                class="bg-green-100 text-green-700 px-4 py-3 rounded-xl mb-4 transition-opacity duration-500">
+                {{ session('success') }}
+            </div>
+        @endif
 
     </div>
 
-    <div class="max-w-4xl mx-auto bg-gray-200 rounded-2xl p-8 shadow">
+    <div x-data="{ info: false }" class="max-w-4xl mx-auto bg-gray-200 rounded-2xl p-8 shadow relative">
+        {{-- INFO BUTTON --}}
+        <button @click="info = !info"
+            class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-600 transition">
+            i
+        </button>
+
+        {{-- POPUP INFO --}}
+        <div x-show="info" @click.away="info = false" x-transition
+            class="absolute top-14 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
+            Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari.
+            Kamu bisa lebih sadar dengan apa yang sedang dirasakan dan dialami,
+            bukan sekadar mencatat kegiatan.
+        </div>
+
         {{-- ================= JUDUL ================= --}}
         <h1 class="text-xl font-bold mb-2 flex items-center gap-2">
             ✨ Versi Terbaikku Nanti

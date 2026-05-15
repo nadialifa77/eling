@@ -31,10 +31,12 @@
     </div>
 
     {{-- PENGGUNAAN WEB --}}
-    <div class="max-w-6xl mx-auto px-6 mb-12">
+<div class="max-w-6xl mx-auto px-6 mb-12">
 
-        <div class="bg-gray-200 rounded-3xl p-6 sm:p-10 shadow-sm 
-            flex flex-col md:flex-row items-center gap-8">
+    <div class="bg-gray-200 rounded-3xl p-6 sm:p-10 shadow-sm">
+
+        {{-- KONTEN ATAS --}}
+        <div class="flex flex-col md:flex-row items-center gap-8">
 
             {{-- GAMBAR KIRI --}}
             <div class="w-40 sm:w-56 flex-shrink-0">
@@ -57,8 +59,7 @@
                     </li>
                     <li>
                         Selanjutnya, pengguna dapat menekan tombol
-                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih
-                        dahulu.
+                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih dahulu.
                     </li>
                     <li>
                         Setelah itu, pengguna bisa mendaftarkan akun lalu masuk agar dapat menggunakan website ini.
@@ -67,7 +68,18 @@
             </div>
         </div>
 
+        {{-- BUTTON --}}
+        @guest
+        <div class="flex justify-center mt-8">
+            <a href="{{ route('login') }}"
+                class="bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold hover:bg-yellow-600 transition">
+                Mulai
+            </a>
+        </div>
+        @endguest
+
     </div>
+</div>
 
     {{-- SECTION CARD 3 KOLOM --}}
     <div x-data="{ active: null }" class="max-w-6xl mx-auto px-6 mb-20">
@@ -143,15 +155,14 @@
                         </h2>
 
                         <p class="mb-4">
-                            Eling adalah media <i>digital journaling</i> berbasis website yang
-                            mengadaptasi konsep <i>bullet journaling</i> dengan tujuan untuk
-                            memfasilitasi peserta didik dalam mengelola <i>purpose in life</i>.
+                            Eling adalah media <i>digital journaling</i> 
+                            berbasis website yang dapat membantu kamu memahami diri, 
+                            mengelola tujuan hidup, dan merefleksikan pengalaman sehari-hari dengan lebih terarah.
                         </p>
 
                         <p>
-                            Media ini diharapkan dapat membantu peserta didik menuliskan pengalaman,
-                            mengelola tujuan, dan memaknai setiap pengalaman secara lebih terstruktur
-                            dalam satu media yang terintegrasi.
+                            Di Eling, kamu dapat menuliskan cerita, perasaan, 
+                            harapan, serta target yang ingin dicapai dalam satu tempat yang praktis dan mudah digunakan
                         </p>
                     </div>
 
@@ -167,14 +178,25 @@
                     {{-- ELING BUAT APA --}}
                     <div class="bg-gray-200 rounded-3xl p-6">
                         <h3 class="font-semibold text-lg mb-3">
-                            Eling Buat apa?
+                            Eling Buat Apa?
                         </h3>
-
-                        <p class="text-sm leading-relaxed">
-                            Eling dapat digunakan sebagai <i>self media</i> bagi peserta didik untuk membantu
-                            menuliskan pengalaman, mengelola tujuan, dan memaknai setiap pengalaman yang ada.
+                
+                        <p class="text-sm leading-relaxed mb-3">
+                            Eling dapat membantu kamu untuk:
+                        </p>
+                
+                        <ul class="list-disc ml-6 text-sm leading-relaxed space-y-1">
+                            <li>menuliskan pengalaman dan perasaan yang sedang dialami,</li>
+                            <li>mengatur tujuan yang ingin dicapai,</li>
+                            <li>memahami perkembangan diri,</li>
+                            <li>dan memaknai setiap pengalaman dalam hidup.</li>
+                        </ul>
+                
+                        <p class="text-sm leading-relaxed mt-3">
+                            Dengan Eling, kamu dapat lebih teratur dalam melakukan refleksi diri sehari-hari.
                         </p>
                     </div>
+                
                 </div>
 
                 {{-- KANAN --}}
@@ -184,13 +206,12 @@
                     </h3>
 
                     <p class="mb-4 text-sm leading-relaxed">
-                        Guru BK sebagai fasilitator yang mengenalkan dan memberikan arahan pada peserta didik tentang cara
-                        penggunaan media.
+                        Guru BK akan membantu kamu memahami cara menggunakan Eling 
+                        dan memberikan pendampingan ketika mengalami kesulitan dalam proses refleksi diri maupun pengelolaan tujuan hidup.
                     </p>
 
                     <p class="text-sm leading-relaxed">
-                        Guru BK bisa memberikan pendampingan pada peserta didik ketika mengalami kesulitan dalam proses
-                        refleksi dan pengelolaan tujuan yang dicapai
+                        Guru BK juga dapat menjadi tempat berdiskusi agar kamu lebih memahami potensi dan perkembangan diri.
                     </p>
                 </div>
 
