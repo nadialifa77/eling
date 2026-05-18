@@ -31,64 +31,83 @@
     </div>
 
     {{-- PENGGUNAAN WEB --}}
-<div class="max-w-6xl mx-auto px-6 mb-12">
+    <div class="max-w-6xl mx-auto px-6 mb-12">
 
-    <div class="bg-gray-200 rounded-3xl p-6 sm:p-10 shadow-sm">
+        <div class="bg-gray-200 rounded-3xl p-6 sm:p-10 shadow-sm">
 
-        {{-- KONTEN ATAS --}}
-        <div class="flex flex-col md:flex-row items-center gap-8">
+            {{-- KONTEN ATAS --}}
+            <div class="flex flex-col md:flex-row items-center gap-8">
 
-            {{-- GAMBAR KIRI --}}
-            <div class="w-40 sm:w-56 flex-shrink-0">
-                <img src="{{ asset('images/logo.png') }}" alt="Penggunaan Web" class="w-full">
+                {{-- GAMBAR KIRI --}}
+                <div class="w-40 sm:w-56 flex-shrink-0">
+                    <img src="{{ asset('images/logo.png') }}" alt="Penggunaan Web" class="w-full">
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">
+                        Penggunaan Web :
+                    </h3>
+
+                    <ol class="list-decimal ml-6 text-sm leading-relaxed space-y-2">
+                        <li>Klik tombol mulai untuk <i>log in</i> atau regristrasi.</li>
+                        <li>
+                            Penggunaan website eling dimulai dari membaca
+                            <strong>“Apa itu Eling”</strong> yang ada di bawah ini.
+                        </li>
+                        <li>
+                            Dilanjutkan dengan
+                            <strong>“Apa itu <i>Purpose in Life?</i>”</strong>.
+                        </li>
+                        <li>
+                            Selanjutnya, pengguna dapat menekan tombol
+                            <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya
+                            terlebih dahulu.
+                        </li>
+                        <li>
+                            Langkah pertama bisa dimulai dengan membuka vitur <strong>“Versi Terbaikku”</strong>
+                        </li>
+                    </ol>
+                </div>
             </div>
 
-            <div>
-                <h3 class="font-semibold text-lg mb-4">
-                    Penggunaan Web :
-                </h3>
+            {{-- BUTTON --}}
+            @guest
+                <div class="flex justify-center mt-8">
+                    <a href="{{ route('login') }}"
+                        class="bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold hover:bg-yellow-600 transition">
+                        Mulai
+                    </a>
+                </div>
+            @endguest
 
-                <ol class="list-decimal ml-6 text-sm leading-relaxed space-y-2">
-                    <li>Klik tombol mulai untuk <i>log in</i> atau regristrasi.</li>
-                    <li>
-                        Penggunaan website eling dimulai dari membaca
-                        <strong>“Apa itu Eling”</strong> yang ada di bawah ini.
-                    </li>
-                    <li>
-                        Dilanjutkan dengan
-                        <strong>“Apa itu <i>Purpose in Life?</i>”</strong>.
-                    </li>
-                    <li>
-                        Selanjutnya, pengguna dapat menekan tombol
-                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih dahulu.
-                    </li>
-                    <li>
-                        Langkah pertama bisa dimulai dengan membuka vitur <strong>“Versi Terbaikku”</strong>
-                    </li>
-                </ol>
-            </div>
         </div>
-
-        {{-- BUTTON --}}
-        @guest
-        <div class="flex justify-center mt-8">
-            <a href="{{ route('login') }}"
-                class="bg-yellow-500 text-black px-8 py-3 rounded-xl font-semibold hover:bg-yellow-600 transition">
-                Mulai
-            </a>
-        </div>
-        @endguest
-
     </div>
-</div>
 
     {{-- SECTION CARD 3 KOLOM --}}
-    <div x-data="{ active: null }" class="max-w-6xl mx-auto px-6 mb-20">
+    <div x-data="{
+        active: null,
+        scrollToDetail(id) {
+            this.active = id;
+    
+            setTimeout(() => {
+                const el = document.getElementById(id + '-section');
+    
+                if (el) {
+                    const y = el.getBoundingClientRect().top + window.pageYOffset - 20;
+    
+                    window.scrollTo({
+                        top: y,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 200);
+        }
+    }" class="max-w-6xl mx-auto px-6 mb-20">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
             {{-- CARD 1 --}}
-            <div @click="active = active === 'eling' ? null : 'eling'"
+            <div @click="scrollToDetail('eling')"
                 class="bg-gray-200 rounded-3xl p-6 shadow-sm 
                         flex flex-col items-center justify-center text-center
                         hover:shadow-md hover:-translate-y-1 transition duration-300 h-48 cursor-pointer">
@@ -103,7 +122,7 @@
             </div>
 
             {{-- CARD 2 --}}
-            <div @click="active = active === 'purpose' ? null : 'purpose'"
+            <div @click="scrollToDetail('purpose')"
                 class="bg-gray-200 rounded-3xl p-6 shadow-sm 
                         flex flex-col items-center justify-center text-center
                         hover:shadow-md hover:-translate-y-1 transition duration-300 h-48 cursor-pointer">
@@ -137,7 +156,7 @@
         </div>
 
         {{-- 👇 SECTION DETAIL (GAMBAR 2) --}}
-        <div x-show="active === 'eling'" x-transition class="mt-10 space-y-6">
+        <div id="eling-section" x-show="active === 'eling'" x-transition class="mt-10 space-y-6">
 
             {{-- CARD ATAS --}}
             <div class="bg-gray-200 rounded-3xl p-8">
@@ -156,13 +175,13 @@
                         </h2>
 
                         <p class="mb-4">
-                            Eling adalah media <i>digital journaling</i> 
-                            berbasis website yang dapat membantu kamu memahami diri, 
+                            Eling adalah media <i>digital journaling</i>
+                            berbasis website yang dapat membantu kamu memahami diri,
                             mengelola tujuan hidup, dan merefleksikan pengalaman sehari-hari dengan lebih terarah.
                         </p>
 
                         <p>
-                            Di Eling, kamu dapat menuliskan cerita, perasaan, 
+                            Di Eling, kamu dapat menuliskan cerita, perasaan,
                             harapan, serta target yang ingin dicapai dalam satu tempat yang praktis dan mudah digunakan
                         </p>
                     </div>
@@ -181,23 +200,23 @@
                         <h3 class="font-semibold text-lg mb-3">
                             Eling Buat Apa?
                         </h3>
-                
+
                         <p class="text-sm leading-relaxed mb-3">
                             Eling dapat membantu kamu untuk:
                         </p>
-                
+
                         <ul class="list-disc ml-6 text-sm leading-relaxed space-y-1">
                             <li>menuliskan pengalaman dan perasaan yang sedang dialami,</li>
                             <li>mengatur tujuan yang ingin dicapai,</li>
                             <li>memahami perkembangan diri,</li>
                             <li>dan memaknai setiap pengalaman dalam hidup.</li>
                         </ul>
-                
+
                         <p class="text-sm leading-relaxed mt-3">
                             Dengan Eling, kamu dapat lebih teratur dalam melakukan refleksi diri sehari-hari.
                         </p>
                     </div>
-                
+
                 </div>
 
                 {{-- KANAN --}}
@@ -207,8 +226,9 @@
                     </h3>
 
                     <p class="mb-4 text-sm leading-relaxed">
-                        Guru BK akan membantu kamu memahami cara menggunakan Eling 
-                        dan memberikan pendampingan ketika mengalami kesulitan dalam proses refleksi diri maupun pengelolaan tujuan hidup.
+                        Guru BK akan membantu kamu memahami cara menggunakan Eling
+                        dan memberikan pendampingan ketika mengalami kesulitan dalam proses refleksi diri maupun pengelolaan
+                        tujuan hidup.
                     </p>
 
                     <p class="text-sm leading-relaxed">
@@ -221,7 +241,7 @@
         </div>
 
         {{-- 👇 SECTION PURPOSE IN LIFE --}}
-        <div x-show="active === 'purpose'" x-transition class="mt-10 space-y-6">
+        <div id="purpose-section" x-show="active === 'purpose'" x-transition class="mt-10 space-y-6">
 
             {{-- CARD 1 --}}
             <div class="bg-gray-200 rounded-3xl p-8">

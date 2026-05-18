@@ -59,7 +59,8 @@
                     </li>
                     <li>
                         Selanjutnya, pengguna dapat menekan tombol
-                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih dahulu.
+                        <strong>“BUKU PANDUAN”</strong> yang terdapat di bawah halaman awal website lalu membacanya terlebih
+                        dahulu.
                     </li>
                     <li>
                         Langkah pertama bisa dimulai dengan membuka vitur <strong>“Versi Terbaikku”</strong>
@@ -71,12 +72,30 @@
     </div>
 
     {{-- SECTION CARD 3 KOLOM --}}
-    <div x-data="{ active: null }" class="max-w-6xl mx-auto px-6 mb-20">
+    <div x-data="{
+        active: null,
+        scrollToDetail(id) {
+            this.active = id;
+    
+            setTimeout(() => {
+                const el = document.getElementById(id + '-section');
+    
+                if (el) {
+                    const y = el.getBoundingClientRect().top + window.pageYOffset - 20;
+    
+                    window.scrollTo({
+                        top: y,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 200);
+        }
+    }" class="max-w-6xl mx-auto px-6 mb-20">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
             {{-- CARD 1 --}}
-            <div @click="active = active === 'eling' ? null : 'eling'"
+            <div @click="scrollToDetail('eling')"
                 class="bg-gray-200 rounded-3xl p-6 shadow-sm 
                         flex flex-col items-center justify-center text-center
                         hover:shadow-md hover:-translate-y-1 transition duration-300 h-48 cursor-pointer">
@@ -91,7 +110,7 @@
             </div>
 
             {{-- CARD 2 --}}
-            <div @click="active = active === 'purpose' ? null : 'purpose'"
+            <div @click="scrollToDetail('purpose')"
                 class="bg-gray-200 rounded-3xl p-6 shadow-sm 
                     flex flex-col items-center justify-center text-center
                     hover:shadow-md hover:-translate-y-1 transition duration-300 h-48 cursor-pointer">
@@ -111,11 +130,11 @@
                     class="bg-gray-200 rounded-3xl p-6 shadow-sm 
                         flex flex-col items-center justify-center text-center
                         hover:shadow-md hover:scale-105 transition h-48 cursor-pointer">
-            
+
                     <div class="w-28 mb-4">
                         <img src="{{ asset('images/book.png') }}" alt="Buku" class="w-full mx-auto">
                     </div>
-            
+
                     <h3 class="font-semibold">
                         Buku Panduan
                     </h3>
@@ -125,7 +144,7 @@
         </div>
 
         {{-- 👇 SECTION DETAIL (GAMBAR 2) --}}
-        <div x-show="active === 'eling'" x-transition class="mt-10 space-y-6">
+        <div id="eling-section" x-show="active === 'eling'" x-transition class="mt-10 space-y-6">
 
             {{-- CARD ATAS --}}
             <div class="bg-gray-200 rounded-3xl p-8">
@@ -144,13 +163,13 @@
                         </h2>
 
                         <p class="mb-4">
-                            Eling adalah media <i>digital journaling</i> 
-                            berbasis website yang dapat membantu kamu memahami diri, 
+                            Eling adalah media <i>digital journaling</i>
+                            berbasis website yang dapat membantu kamu memahami diri,
                             mengelola tujuan hidup, dan merefleksikan pengalaman sehari-hari dengan lebih terarah.
                         </p>
 
                         <p>
-                            Di Eling, kamu dapat menuliskan cerita, perasaan, 
+                            Di Eling, kamu dapat menuliskan cerita, perasaan,
                             harapan, serta target yang ingin dicapai dalam satu tempat yang praktis dan mudah digunakan
                         </p>
                     </div>
@@ -169,23 +188,23 @@
                         <h3 class="font-semibold text-lg mb-3">
                             Eling Buat Apa?
                         </h3>
-                
+
                         <p class="text-sm leading-relaxed mb-3">
                             Eling dapat membantu kamu untuk:
                         </p>
-                
+
                         <ul class="list-disc ml-6 text-sm leading-relaxed space-y-1">
                             <li>menuliskan pengalaman dan perasaan yang sedang dialami,</li>
                             <li>mengatur tujuan yang ingin dicapai,</li>
                             <li>memahami perkembangan diri,</li>
                             <li>dan memaknai setiap pengalaman dalam hidup.</li>
                         </ul>
-                
+
                         <p class="text-sm leading-relaxed mt-3">
                             Dengan Eling, kamu dapat lebih teratur dalam melakukan refleksi diri sehari-hari.
                         </p>
                     </div>
-                
+
                 </div>
 
                 {{-- KANAN --}}
@@ -195,8 +214,9 @@
                     </h3>
 
                     <p class="mb-4 text-sm leading-relaxed">
-                        Guru BK akan membantu kamu memahami cara menggunakan Eling 
-                        dan memberikan pendampingan ketika mengalami kesulitan dalam proses refleksi diri maupun pengelolaan tujuan hidup.
+                        Guru BK akan membantu kamu memahami cara menggunakan Eling
+                        dan memberikan pendampingan ketika mengalami kesulitan dalam proses refleksi diri maupun pengelolaan
+                        tujuan hidup.
                     </p>
 
                     <p class="text-sm leading-relaxed">
@@ -209,7 +229,7 @@
         </div>
 
         {{-- 👇 SECTION PURPOSE IN LIFE --}}
-        <div x-show="active === 'purpose'" x-transition class="mt-10 space-y-6">
+        <div id="purpose-section" x-show="active === 'purpose'" x-transition class="mt-10 space-y-6">
             {{-- CARD 1 --}}
             <div class="bg-gray-200 rounded-3xl p-8">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
@@ -350,23 +370,20 @@
     </div>
 
     @if ($version)
-    <div x-data="{ info:false }"
-         class="relative mt-10 bg-white rounded-2xl p-6 shadow max-w-3xl mx-auto">
+        <div x-data="{ info: false }" class="relative mt-10 bg-white rounded-2xl p-6 shadow max-w-3xl mx-auto">
 
-        {{-- tombol info --}}
-        <button @click="info = !info"
-            class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-700 transition">
-            i
-        </button>
+            {{-- tombol info --}}
+            <button @click="info = !info"
+                class="absolute top-4 right-4 w-8 h-8 rounded-full bg-blue-900 text-white font-bold hover:bg-blue-700 transition">
+                i
+            </button>
 
-        {{-- popup info --}}
-        <div x-show="info"
-             @click.away="info = false"
-             x-transition
-             class="absolute top-14 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
-             Yuk isi bagian ini di fitur Versi Terbaikku Nanti, 
-             agar kamu bisa melihat kembali harapan dan pesan untuk dirimu di masa depan.
-        </div>
+            {{-- popup info --}}
+            <div x-show="info" @click.away="info = false" x-transition
+                class="absolute top-14 right-4 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
+                Yuk isi bagian ini di fitur Versi Terbaikku Nanti,
+                agar kamu bisa melihat kembali harapan dan pesan untuk dirimu di masa depan.
+            </div>
 
             <h2 class="text-xl font-bold mb-4 text-center">
                 🌟 Versi Terbaikku Nanti

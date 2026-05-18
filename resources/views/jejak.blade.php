@@ -102,56 +102,15 @@
             data: {
                 labels: {!! json_encode($dates) !!},
                 datasets: [{
-                        label: '😭',
-                        data: {!! json_encode($moodData['😭']) !!},
-                        borderColor: '#ef4444',
-                        backgroundColor: '#ef4444',
-                        borderWidth: 3,
-                        tension: 0.3,
-                        fill: false,
-                        pointRadius: 4
-                    },
-                    {
-                        label: '😨',
-                        data: {!! json_encode($moodData['😨']) !!},
-                        borderColor: '#3b82f6',
-                        backgroundColor: '#3b82f6',
-                        borderWidth: 3,
-                        tension: 0.3,
-                        fill: false,
-                        pointRadius: 4
-                    },
-                    {
-                        label: '😐',
-                        data: {!! json_encode($moodData['😐']) !!},
-                        borderColor: '#6b7280',
-                        backgroundColor: '#6b7280',
-                        borderWidth: 3,
-                        tension: 0.3,
-                        fill: false,
-                        pointRadius: 4
-                    },
-                    {
-                        label: '😄',
-                        data: {!! json_encode($moodData['😄']) !!},
-                        borderColor: '#22c55e',
-                        backgroundColor: '#22c55e',
-                        borderWidth: 3,
-                        tension: 0.3,
-                        fill: false,
-                        pointRadius: 4
-                    },
-                    {
-                        label: '😡',
-                        data: {!! json_encode($moodData['😡']) !!},
-                        borderColor: '#eab308',
-                        backgroundColor: '#eab308',
-                        borderWidth: 3,
-                        tension: 0.3,
-                        fill: false,
-                        pointRadius: 4
-                    }
-                ]
+                    label: 'Mood',
+                    data: {!! json_encode($moodData) !!},
+                    borderColor: '#3b82f6',
+                    backgroundColor: '#3b82f6',
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: false,
+                    pointRadius: 5
+                }]
             },
             options: {
                 responsive: true,
@@ -162,13 +121,24 @@
                 },
                 scales: {
                     y: {
-                        min: 0,
-                        max: 1,
+                        min: 1,
+                        max: 5,
                         ticks: {
                             stepSize: 1,
                             callback: function(value) {
-                                return value === 1 ? 'Ada' : '';
+                                const moods = {
+                                    1: '😭',
+                                    2: '😨',
+                                    3: '😐',
+                                    4: '😄',
+                                    5: '😡'
+                                };
+                                return moods[value];
                             }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Tingkat Emosi'
                         }
                     }
                 }
