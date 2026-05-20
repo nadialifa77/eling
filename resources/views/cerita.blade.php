@@ -43,7 +43,7 @@
                 {{-- popup info --}}
                 <div x-show="info" @click.away="info = false" x-transition
                     class="absolute top-16 right-6 w-72 bg-gray-800 text-white text-sm p-4 rounded-xl shadow-lg z-50">
-                    Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari. 
+                    Fitur untuk memahami perasaan, pengalaman, dan proses diri setiap hari.
                     Kamu bisa lebih sadar dengan apa yang sedang dirasakan dan dialami, bukan sekadar mencatat kegiatan.
                 </div>
 
@@ -60,22 +60,22 @@
                         class="emoji text-3xl cursor-pointer {{ old('mood') == '😭' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
                         😭
                     </span>
-                
+
                     <span onclick="setMood(this, '😨')"
                         class="emoji text-3xl cursor-pointer {{ old('mood') == '😨' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
                         😨
                     </span>
-                
+
                     <span onclick="setMood(this, '😐')"
                         class="emoji text-3xl cursor-pointer {{ old('mood') == '😐' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
                         😐
                     </span>
-                
+
                     <span onclick="setMood(this, '😄')"
                         class="emoji text-3xl cursor-pointer {{ old('mood') == '😄' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
                         😄
                     </span>
-                
+
                     <span onclick="setMood(this, '😡')"
                         class="emoji text-3xl cursor-pointer {{ old('mood') == '😡' ? 'scale-125 ring-2 ring-yellow-400' : '' }}">
                         😡
@@ -84,7 +84,7 @@
 
                 {{-- PREVIEW --}}
                 <div id="selectedMood" class="mb-4 text-xl">
-                    @if(old('mood'))
+                    @if (old('mood'))
                         Mood dipilih: {{ old('mood') }} Terima kasih sudah jujur atas perasaanmu🫰🏻
                     @endif
                 </div>
@@ -106,7 +106,7 @@
                 </ol>
 
                 {{-- TEXTAREA --}}
-                <textarea name="isi" class="w-full h-32 p-4 rounded-xl border mb-4" placeholder="Tulis ceritamu..." >{{ old('isi') }}</textarea>
+                <textarea name="isi" class="w-full h-32 p-4 rounded-xl border mb-4" placeholder="Tulis ceritamu...">{{ old('isi') }}</textarea>
 
                 {{-- BUTTON --}}
                 <button class="w-full bg-yellow-500 py-3 rounded-xl font-semibold">
@@ -128,34 +128,61 @@
 
             <p class="text-sm text-gray-600 mb-4 leading-relaxed">
                 Ini adalah ruang cerita hidupmu 🌱<br>
-                Tuangkan cerita, perasaan, dan pengalamanmu tanpa takut dihakimi, lalu temukan makna dari setiap perjalananmu ✨
+                Tuangkan cerita, perasaan, dan pengalamanmu tanpa takut dihakimi, lalu temukan makna dari setiap
+                perjalananmu ✨
             </p>
 
             {{-- ISI --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                 @forelse ($ceritas as $item)
-                    <div class="bg-white rounded-xl p-4 flex justify-between items-start">
+<div x-data="{ open: false }"
+    class="bg-white rounded-xl p-5 shadow-sm min-h-[230px] flex flex-col">
 
-                        <div>
-                            <div class="text-xl mb-1">{{ $item->mood }}</div>
-                            <p class="text-sm">{{ $item->isi }}</p>
-                            <p class="text-xs text-gray-400 mt-2">
-                                {{ $item->created_at->timezone('Asia/Jakarta')->format('d M Y H:i') }} WIB
-                            </p>
-                        </div>
+    {{-- header --}}
+    <div class="flex justify-between items-start mb-4">
+        <div class="text-2xl">
+            {{ $item->mood }}
+        </div>
 
-                        <form action="{{ route('cerita.destroy', $item->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+        <form action="{{ route('cerita.destroy', $item->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
 
-                            <button class="text-gray-400 hover:text-red-500">
-                                🗑️
-                            </button>
-                        </form>
+            <button
+                onclick="return confirm('Yakin ingin menghapus cerita ini?')"
+                class="text-gray-400 hover:text-red-500 text-lg">
+                🗑️
+            </button>
+        </form>
+    </div>
 
-                    </div>
-                @empty
+    {{-- isi --}}
+    <div class="flex-1">
+        <div style="text-align:left !important;">
+            <p
+    class="text-sm text-gray-700 break-words leading-relaxed"
+    :class="open ? 'whitespace-pre-wrap' : 'line-clamp-4'">
+    {{ $item->isi }}
+</p>
+        </div>
+
+        @if (strlen($item->isi) > 150)
+            <button
+                @click="open = !open"
+                class="text-blue-500 text-xs mt-3 hover:underline">
+                <span x-text="open ? 'Tampilkan lebih sedikit' : 'Lihat selengkapnya'"></span>
+            </button>
+        @endif
+    </div>
+
+    {{-- footer --}}
+    <p class="text-xs text-gray-400 mt-4">
+        {{ $item->created_at->timezone('Asia/Jakarta')->format('d M Y H:i') }} WIB
+    </p>
+
+</div>
+@empty
                     <div class="bg-white rounded-xl p-8 text-center border-2 border-dashed border-gray-300 md:col-span-2">
                         <div class="text-5xl mb-3">📖</div>
 
@@ -174,7 +201,6 @@
 
         </div>
 
-    </div>
     </div>
 
     <script>

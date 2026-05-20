@@ -104,101 +104,121 @@
                         </p>
                     </div>
                 @else
-                    @foreach ($tujuans as $tujuan)
-                        @php
-                            $total = $tujuan->subTujuans->count();
-                            $done = $tujuan->subTujuans->where('is_done', true)->count();
-                            $percent = $total > 0 ? round(($done / $total) * 100) : 0;
-                        @endphp
-
-                        {{-- CARD --}}
-                        <div x-data="{ open: true }" class="bg-white rounded-xl p-4">
-
-                            {{-- JUDUL --}}
-                            <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-semibold uppercase text-sm md:text-base">
-                                    {{ $tujuan->judul }}
-                                </h3>
-                                <span class="text-sm">{{ $percent }}%</span>
-                            </div>
-
-                            {{-- PROGRESS --}}
-                            <div class="w-full h-2 bg-gray-200 rounded-full mb-3">
-                                <div class="h-2 bg-yellow-500 rounded-full" style="width: {{ $percent }}%"></div>
-                            </div>
-
-                            {{-- BUTTON AREA --}}
-                            <div class="flex flex-col md:flex-row gap-2 mb-3">
-
-                                {{-- TOGGLE --}}
-                                <button @click="open = !open"
-                                    class="w-full md:flex-1 bg-yellow-400 py-2 rounded-xl font-semibold">
-                                    <span x-show="!open">Lihat Rencana</span>
-                                    <span x-show="open">Sembunyikan Rencana</span>
-                                </button>
-
-                                {{-- TAMBAH SUB --}}
-                                <form action="{{ route('sub.store') }}" method="POST"
-                                    class="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+                @foreach ($tujuans as $tujuan)
+                @php
+                    $total = $tujuan->subTujuans->count();
+                    $done = $tujuan->subTujuans->where('is_done', true)->count();
+                    $percent = $total > 0 ? round(($done / $total) * 100) : 0;
+                @endphp
+            
+                <div x-data="{ open: true }" class="bg-white rounded-2xl p-4 md:p-5 shadow-sm">
+            
+                    {{-- JUDUL --}}
+                    <div class="flex justify-between items-start gap-3 mb-3">
+                        <h3 class="font-semibold text-sm md:text-base break-words flex-1">
+                            {{ $tujuan->judul }}
+                        </h3>
+                        <span class="text-sm shrink-0">{{ $percent }}%</span>
+                    </div>
+            
+                    {{-- PROGRESS --}}
+                    <div class="w-full h-2 bg-gray-200 rounded-full mb-4">
+                        <div class="h-2 bg-yellow-500 rounded-full"
+                            style="width: {{ $percent }}%">
+                        </div>
+                    </div>
+            
+                    {{-- BUTTON --}}
+                    <div class="space-y-2 mb-4">
+            
+                        {{-- toggle --}}
+                        <button
+                            @click="open = !open"
+                            class="w-full bg-yellow-400 py-3 rounded-xl font-semibold text-sm">
+                            <span x-show="!open">Lihat Rencana</span>
+                            <span x-show="open">Sembunyikan Rencana</span>
+                        </button>
+            
+                        {{-- tambah sub --}}
+                        <form action="{{ route('sub.store') }}"
+                            method="POST"
+                            class="flex flex-col sm:flex-row gap-2">
+                            @csrf
+                            <input type="hidden"
+                                name="tujuan_id"
+                                value="{{ $tujuan->id }}">
+            
+                            <input
+                                type="text"
+                                name="judul"
+                                placeholder="Sub tujuan"
+                                class="flex-1 px-3 py-3 rounded-xl border text-sm"
+                                required>
+            
+                            <button
+                                class="bg-yellow-300 px-4 py-3 rounded-xl text-sm font-medium">
+                                Tambah
+                            </button>
+                        </form>
+            
+                        {{-- hapus --}}
+                        <form action="{{ route('tujuan.delete', $tujuan->id) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+            
+                            <button
+                                class="w-full bg-red-500 text-white py-3 rounded-xl text-sm font-medium">
+                                Hapus
+                            </button>
+                        </form>
+                    </div>
+            
+                    {{-- SUB TUJUAN --}}
+                    <div x-show="open" x-transition class="space-y-3">
+            
+                        @foreach ($tujuan->subTujuans as $sub)
+                        <div class="flex items-start gap-3 w-full overflow-hidden">
+            
+                                {{-- checklist --}}
+                                <form action="{{ route('sub.toggle', $sub->id) }}"
+                                    method="POST"
+                                    class="flex-1">
                                     @csrf
-                                    <input type="hidden" name="tujuan_id" value="{{ $tujuan->id }}">
-
-                                    <input type="text" name="judul" placeholder="Sub tujuan"
-                                        class="px-3 py-2 rounded border w-full" required>
-
-                                    <button class="bg-yellow-300 px-3 py-2 rounded w-full md:w-auto">
-                                        Tambah
-                                    </button>
+            
+                                    <label class="flex items-start gap-3 cursor-pointer">
+            
+                                        <input
+                                            type="checkbox"
+                                            onchange="this.form.submit()"
+                                            class="mt-1 shrink-0"
+                                            {{ $sub->is_done ? 'checked' : '' }}>
+            
+                                            <span class="text-sm flex-1 break-all leading-relaxed pr-2
+                                            {{ $sub->is_done ? 'line-through text-gray-400' : '' }}">
+                                            {{ $sub->judul }}
+                                        </span>
+                                    </label>
                                 </form>
-
-                                {{-- HAPUS --}}
-                                <form action="{{ route('tujuan.delete', $tujuan->id) }}" method="POST"
-                                    class="w-full md:w-auto">
+            
+                                {{-- delete --}}
+                                <form action="{{ route('sub.delete', $sub->id) }}"
+                                    method="POST"
+                                    class="shrink-0">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="bg-red-500 text-white px-3 py-2 rounded w-full md:w-auto">
-                                        Hapus
+            
+                                    <button
+                                        class="text-gray-400 hover:text-red-500 text-lg">
+                                        🗑️
                                     </button>
                                 </form>
-
                             </div>
-
-                            {{-- SUB TUJUAN --}}
-                            <div x-show="open" x-transition class="space-y-2">
-
-                                @foreach ($tujuan->subTujuans as $sub)
-                                    <div class="flex justify-between items-center gap-2">
-
-                                        {{-- KIRI --}}
-                                        <form action="{{ route('sub.toggle', $sub->id) }}" method="POST" class="flex-1">
-                                            @csrf
-                                            <label class="flex items-center gap-2 cursor-pointer">
-                                                <input type="checkbox" onchange="this.form.submit()"
-                                                    {{ $sub->is_done ? 'checked' : '' }}>
-
-                                                <span
-                                                    class="truncate {{ $sub->is_done ? 'line-through text-gray-400' : '' }}">
-                                                    {{ $sub->judul }}
-                                                </span>
-                                            </label>
-                                        </form>
-
-                                        {{-- KANAN --}}
-                                        <form action="{{ route('sub.delete', $sub->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="text-gray-400 hover:text-red-500 text-lg">
-                                                🗑️
-                                            </button>
-                                        </form>
-
-                                    </div>
-                                @endforeach
-
-                            </div>
-
-                        </div>
-                    @endforeach
+                        @endforeach
+            
+                    </div>
+                </div>
+            @endforeach
                 @endif
             </div>
 
