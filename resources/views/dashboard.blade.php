@@ -74,21 +74,36 @@
     {{-- SECTION CARD 3 KOLOM --}}
     <div x-data="{
         active: null,
+    
         scrollToDetail(id) {
+            // klik kedua -> tutup
+            if (this.active === id) {
+                this.active = null;
+                return;
+            }
+    
+            // buka section
             this.active = id;
     
-            setTimeout(() => {
+            this.$nextTick(() => {
                 const el = document.getElementById(id + '-section');
     
                 if (el) {
-                    const y = el.getBoundingClientRect().top + window.pageYOffset - 20;
-    
-                    window.scrollTo({
-                        top: y,
-                        behavior: 'smooth'
+                    // scroll ke awal section
+                    el.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
+    
+                    // koreksi karena header fixed
+                    setTimeout(() => {
+                        window.scrollBy({
+                            top: -110,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
                 }
-            }, 200);
+            });
         }
     }" class="max-w-6xl mx-auto px-6 mb-20">
 
