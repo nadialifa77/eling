@@ -88,25 +88,32 @@
         active: null,
     
         scrollToDetail(id) {
-            // kalau section yg sama diklik lagi -> tutup
+            // klik kedua -> tutup
             if (this.active === id) {
                 this.active = null;
                 return;
             }
     
-            // buka section baru
+            // buka section
             this.active = id;
     
             this.$nextTick(() => {
                 const el = document.getElementById(id + '-section');
     
                 if (el) {
-                    const y = el.getBoundingClientRect().top + window.pageYOffset - 20;
-    
-                    window.scrollTo({
-                        top: y,
-                        behavior: 'smooth'
+                    // scroll ke awal section
+                    el.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
+    
+                    // koreksi karena header fixed
+                    setTimeout(() => {
+                        window.scrollBy({
+                            top: -110,
+                            behavior: 'smooth'
+                        });
+                    }, 300);
                 }
             });
         }
