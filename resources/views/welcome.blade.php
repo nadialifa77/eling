@@ -86,10 +86,18 @@
     {{-- SECTION CARD 3 KOLOM --}}
     <div x-data="{
         active: null,
+    
         scrollToDetail(id) {
+            // kalau section yg sama diklik lagi -> tutup
+            if (this.active === id) {
+                this.active = null;
+                return;
+            }
+    
+            // buka section baru
             this.active = id;
     
-            setTimeout(() => {
+            this.$nextTick(() => {
                 const el = document.getElementById(id + '-section');
     
                 if (el) {
@@ -100,7 +108,7 @@
                         behavior: 'smooth'
                     });
                 }
-            }, 200);
+            });
         }
     }" class="max-w-6xl mx-auto px-6 mb-20">
 
